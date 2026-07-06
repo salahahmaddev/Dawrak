@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة زفاف - Wedding Invitation</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Custom Tailwind Configuration */
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+        
+        :root {
+            --color-off-white: #FAF9F6;
+            --color-soft-gold: #D4AF37;
+            --color-deep-emerald: #2C5F4F;
+            --color-elegant-burgundy: #6B2737;
+        }
+        
+        body {
+            background-color: var(--color-off-white);
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .font-amiri {
+            font-family: 'Amiri', serif;
+        }
+        
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .text-gold {
+            color: var(--color-soft-gold);
+        }
+        
+        .bg-gold {
+            background-color: var(--color-soft-gold);
+        }
+        
+        .text-emerald {
+            color: var(--color-deep-emerald);
+        }
+        
+        .bg-emerald {
+            background-color: var(--color-deep-emerald);
+        }
+        
+        .bg-burgundy {
+            background-color: var(--color-elegant-burgundy);
+        }
+        
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Fade-in Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Hero Background Pattern */
+        .hero-pattern {
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(44, 95, 79, 0.1) 0%, transparent 50%);
+        }
+        
+        /* Decorative Divider */
+        .divider {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-soft-gold), transparent);
+            margin: 1rem auto;
+        }
+        
+        /* Floating Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* Music Button */
+        .music-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--color-soft-gold);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .music-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+        }
+        
+        .music-btn.playing {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); }
+            50% { box-shadow: 0 4px 25px rgba(212, 175, 55, 0.8); }
+        }
+        
+        /* Timeline Styles */
+        .timeline-item {
+            position: relative;
+            padding-right: 40px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--color-soft-gold);
+            border: 3px solid var(--color-off-white);
+            box-shadow: 0 0 0 3px var(--color-soft-gold);
+        }
+        
+        .timeline-line {
+            position: absolute;
+            right: 7px;
+            top: 20px;
+            width: 2px;
+            height: calc(100% - 20px);
+            background: linear-gradient(180deg, var(--color-soft-gold), transparent);
+        }
+        
+        /* Form Styles */
+        input, select, textarea {
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        /* Success Message Animation */
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .success-message {
+            animation: slideInUp 0.5s ease-out;
+        }
+        
+        /* Countdown Timer Styles */
+        .countdown-box {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--color-soft-gold);
+            border-radius: 10px;
+            padding: 1rem;
+            min-width: 80px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .music-btn {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-off-white">
+    
+    <!-- Background Music (Hidden) -->
+    <audio id="backgroundMusic" loop>
+        <!-- Replace with your music file -->
+        <source src="wedding-music.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Music Control Button -->
+    <button id="musicBtn" class="music-btn" aria-label="Toggle music">
+        <i class="fas fa-music text-xl"></i>
+    </button>
+    
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center hero-pattern relative overflow-hidden py-20 px-4">
+        <div class="container mx-auto text-center fade-in">
+            <!-- Decorative Top Element -->
+            <div class="float-animation mb-8">
+                <i class="fas fa-heart text-gold text-4xl md:text-5xl"></i>
+            </div>
+            
+            <!-- Welcome Text -->
+            <h2 class="font-amiri text-2xl md:text-3xl text-emerald mb-6">
+                بسم الله الرحمن الرحيم
+            </h2>
+            
+            <!-- Names -->
+            <div class="mb-8">
+                <h1 class="font-playfair text-4xl md:text-6xl lg:text-7xl text-gold mb-4 tracking-wide">
+                    <span class="block mb-2">[اكتب اسم العريس]</span>
+                    <span class="text-3xl md:text-5xl text-emerald">و</span>
+                    <span class="block mt-2">[اكتب اسم العروس]</span>
+                </h1>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <!-- Welcome Message -->
+            <p class="font-amiri text-xl md:text-2xl lg:text-3xl text-emerald mt-6 mb-12">
+                تزداد فرحتنا بوجودكم
+            </p>
+            
+            <!-- Countdown Timer -->
+            <div class="mb-8">
+                <p class="font-cairo text-lg md:text-xl text-emerald mb-4">باقي على الزفاف</p>
+                <div id="countdown" class="flex justify-center gap-3 md:gap-6 flex-wrap">
+                    <div class="countdown-box">
+                        <div id="days" class="text-3xl md:text-4xl font-bold text-gold">00</div>
+                        <div class="text-xs md:text-sm text-emerald mt-1">يوم</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div id="hours" class="text-3xl md:text-4xl font-bold text-gold">00</div>
+                        <div class="text-xs md:text-sm text-emerald mt-1">ساعة</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div id="minutes" class="text-3xl md:text-4xl font-bold text-gold">00</div>
+                        <div class="text-xs md:text-sm text-emerald mt-1">دقيقة</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div id="seconds" class="text-3xl md:text-4xl font-bold text-gold">00</div>
+                        <div class="text-xs md:text-sm text-emerald mt-1">ثانية</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scroll Down Indicator -->
+            <div class="mt-16">
+                <a href="#details" class="inline-block">
+                    <i class="fas fa-chevron-down text-gold text-2xl animate-bounce"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Invitation Details Section -->
+    <section id="details" class="py-20 px-4 bg-white">
+        <div class="container mx-auto max-w-4xl fade-in">
+            <div class="text-center mb-12">
+                <i class="fas fa-rings-wedding text-gold text-4xl md:text-5xl mb-4"></i>
+                <h2 class="font-amiri text-3xl md:text-4xl lg:text-5xl text-emerald mb-4">
+                    تفاصيل الحفل
+                </h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Date & Time -->
+                <div class="bg-gray-50 p-8 rounded-lg text-center border-2 border-gold/20 hover:border-gold/50 transition-all">
+                    <i class="fas fa-calendar-day text-gold text-3xl mb-4"></i>
+                    <h3 class="font-cairo text-xl md:text-2xl text-emerald font-semibold mb-3">
+                        التاريخ والوقت
+                    </h3>
+                    <p class="font-cairo text-lg text-gray-700 leading-relaxed">
+                        <!-- EDIT HERE: Add your wedding date and time -->
+                        [اكتب التاريخ واليوم]<br>
+                        [اكتب الساعة]
+                    </p>
+                </div>
+                
+                <!-- Venue -->
+                <div class="bg-gray-50 p-8 rounded-lg text-center border-2 border-gold/20 hover:border-gold/50 transition-all">
+                    <i class="fas fa-map-marker-alt text-gold text-3xl mb-4"></i>
+                    <h3 class="font-cairo text-xl md:text-2xl text-emerald font-semibold mb-3">
+                        المكان
+                    </h3>
+                    <p class="font-cairo text-lg text-gray-700 leading-relaxed mb-4">
+                        <!-- EDIT HERE: Add venue name -->
+                        [اسم القاعة أو الفندق]
+                    </p>
+                    <a href="https://maps.google.com" target="_blank" 
+                       class="inline-block bg-gold hover:bg-emerald text-white font-cairo px-6 py-2 rounded-full transition-colors">
+                        <i class="fas fa-map-marked-alt ml-2"></i>
+                        عرض الموقع على الخريطة
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Google Maps Embed (Optional) -->
+            <div class="rounded-lg overflow-hidden shadow-lg border-4 border-gold/30">
+                <!-- EDIT HERE: Replace with your actual Google Maps embed URL -->
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.9440734909743!2d46.6752957!3d24.7135517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDQyJzQ4LjgiTiA0NsKwNDAnMzEuMSJF!5e0!3m2!1sen!2s!4v1234567890"
+                    width="100%" 
+                    height="400" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    class="w-full">
+                </iframe>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Wedding Timeline Section -->
+    <section id="timeline" class="py-20 px-4 bg-gray-50">
+        <div class="container mx-auto max-w-3xl fade-in">
+            <div class="text-center mb-12">
+                <i class="fas fa-clock text-gold text-4xl md:text-5xl mb-4"></i>
+                <h2 class="font-amiri text-3xl md:text-4xl lg:text-5xl text-emerald mb-4">
+                    جدول الحفل
+                </h2>
+                <div class="divider"></div>
+            </div>
+            
+            <div class="relative">
+                <!-- Timeline Items -->
+                <div class="space-y-8">
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-line"></div>
+                        <div class="bg-white p-6 rounded-lg shadow-md border-r-4 border-gold hover:shadow-lg transition-shadow">
+                            <div class="flex items-start justify-between flex-wrap gap-4">
+                                <div>
+                                    <h3 class="font-cairo text-xl md:text-2xl text-emerald font-semibold mb-2">
+                                        استقبال الضيوف
+                                    </h3>
+                                    <p class="text-gray-600">الترحيب بالحضور الكرام</p>
+                                </div>
+                                <div class="bg-gold/10 px-4 py-2 rounded-lg">
+                                    <span class="font-cairo text-lg font-semibold text-gold">7:00 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-line"></div>
+                        <div class="bg-white p-6 rounded-lg shadow-md border-r-4 border-gold hover:shadow-lg transition-shadow">
+                            <div class="flex items-start justify-between flex-wrap gap-4">
+                                <div>
+                                    <h3 class="font-cairo text-xl md:text-2xl text-emerald font-semibold mb-2">
+                                        دخول العروسين - الزفة
+                                    </h3>
+                                    <p class="text-gray-600">زفة العروسين بحضور الأهل والأصدقاء</p>
+                                </div>
+                                <div class="bg-gold/10 px-4 py-2 rounded-lg">
+                                    <span class="font-cairo text-lg font-semibold text-gold">8:00 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 3 -->
+                    <div class="timeline-item">
+                        <div class="timeline-line"></div>
+                        <div class="bg-white p-6 rounded-lg shadow-md border-r-4 border-gold hover:shadow-lg transition-shadow">
+                            <div class="flex items-start justify-between flex-wrap gap-4">
+                                <div>
+                                    <h3 class="font-cairo text-xl md:text-2xl text-emerald font-semibold mb-2">
+                                        قص كيكة الزفاف
+                                    </h3>
+                                    <p class="text-gray-600">قص الكيكة والاحتفال</p>
+                                </div>
+                                <div class="bg-gold/10 px-4 py-2 rounded-lg">
+                                    <span class="font-cairo text-lg font-semibold text-gold">9:00 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Timeline Item 4 -->
+                    <div class="timeline-item">
+                        <div class="bg-white p-6 rounded-lg shadow-md border-r-4 border-gold hover:shadow-lg transition-shadow">
+                            <div class="flex items-start justify-between flex-wrap gap-4">
+                                <div>
+                                    <h3 class="font-cairo text-xl md:text-2xl text-emerald font-semibold mb-2">
+                                        العشاء والاحتفال
+                                    </h3>
+                                    <p class="text-gray-600">تناول العشاء والرقص مع العائلة والأصدقاء</p>
+                                </div>
+                                <div class="bg-gold/10 px-4 py-2 rounded-lg">
+                                    <span class="font-cairo text-lg font-semibold text-gold">9:30 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- RSVP Section -->
+    <section id="rsvp" class="py-20 px-4 bg-white">
+        <div class="container mx-auto max-w-2xl fade-in">
+            <div class="text-center mb-12">
+                <i class="fas fa-envelope-open-text text-gold text-4xl md:text-5xl mb-4"></i>
+                <h2 class="font-amiri text-3xl md:text-4xl lg:text-5xl text-emerald mb-4">
+                    تأكيد الحضور
+                </h2>
+                <div class="divider"></div>
+                <p class="font-cairo text-lg text-gray-600 mt-6">
+                    يسعدنا تأكيد حضوركم معنا في هذه المناسبة السعيدة
+                </p>
+            </div>
+            
+            <!-- RSVP Form -->
+            <form id="rsvpForm" class="bg-gray-50 p-8 md:p-10 rounded-lg shadow-lg border-2 border-gold/20">
+                <!-- Name Field -->
+                <div class="mb-6">
+                    <label for="guestName" class="block font-cairo text-lg text-emerald mb-2 font-semibold">
+                        <i class="fas fa-user ml-2 text-gold"></i>
+                        الاسم الكامل
+                    </label>
+                    <input 
+                        type="text" 
+                        id="guestName" 
+                        name="guestName" 
+                        required
+                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-gold focus:outline-none transition-colors text-right"
+                        placeholder="أدخل اسمك الكامل">
+                </div>
+                
+                <!-- Attendance Status -->
+                <div class="mb-6">
+                    <label for="attendance" class="block font-cairo text-lg text-emerald mb-2 font-semibold">
+                        <i class="fas fa-check-circle ml-2 text-gold"></i>
+                        هل ستحضر؟
+                    </label>
+                    <select 
+                        id="attendance" 
+                        name="attendance" 
+                        required
+                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-gold focus:outline-none transition-colors text-right cursor-pointer">
+                        <option value="">اختر...</option>
+                        <option value="yes">نعم، سأحضر بإذن الله</option>
+                        <option value="no">للأسف، لن أتمكن من الحضور</option>
+                    </select>
+                </div>
+                
+                <!-- Number of Guests -->
+                <div class="mb-8">
+                    <label for="guestCount" class="block font-cairo text-lg text-emerald mb-2 font-semibold">
+                        <i class="fas fa-users ml-2 text-gold"></i>
+                        عدد المرافقين (بالإضافة إليك)
+                    </label>
+                    <input 
+                        type="number" 
+                        id="guestCount" 
+                        name="guestCount" 
+                        min="0" 
+                        max="10"
+                        value="0"
+                        required
+                        class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-gold focus:outline-none transition-colors text-right"
+                        placeholder="0">
+                    <p class="text-sm text-gray-500 mt-2 text-right">مثال: إذا كنت ستحضر مع شخصين، أدخل الرقم 2</p>
+                </div>
+                
+                <!-- Submit Button -->
+                <button 
+                    type="submit" 
+                    class="w-full bg-gold hover:bg-emerald text-white font-cairo text-xl py-4 rounded-lg transition-all transform hover:scale-105 shadow-lg">
+                    <i class="fas fa-paper-plane ml-2"></i>
+                    إرسال التأكيد
+                </button>
+            </form>
+            
+            <!-- Success Message (Hidden by default) -->
+            <div id="successMessage" class="hidden mt-8 bg-emerald text-white p-6 rounded-lg text-center success-message">
+                <i class="fas fa-check-circle text-4xl mb-3"></i>
+                <h3 class="font-cairo text-2xl font-semibold mb-2">شكراً لتأكيد حضورك!</h3>
+                <p class="font-cairo text-lg">نتطلع لرؤيتك في حفل زفافنا</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer Section -->
+    <footer class="bg-emerald text-white py-12 px-4">
+        <div class="container mx-auto text-center">
+            <div class="mb-6">
+                <i class="fas fa-heart text-gold text-3xl float-animation"></i>
+            </div>
+            <p class="font-amiri text-xl md:text-2xl mb-4">
+                نحن في انتظاركم
+            </p>
+            <p class="font-cairo text-sm md:text-base text-gray-300">
+                صُممت هذه الدعوة بكل حب ❤️
+            </p>
+            <div class="mt-6 text-sm text-gray-400">
+                <p>© 2026 - جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // ========================================
+        // CONFIGURATION SECTION - EDIT HERE
+        // ========================================
+        
+        // SET YOUR WEDDING DATE HERE (Year, Month-1, Day, Hour, Minute)
+        // Note: Month is 0-indexed (0 = January, 11 = December)
+        const WEDDING_DATE = new Date(2026, 11, 31, 19, 0, 0); // Example: December 31, 2026 at 7:00 PM
+        
+        // ========================================
+        // COUNTDOWN TIMER
+        // ========================================
+        
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = WEDDING_DATE.getTime() - now;
+            
+            if (distance < 0) {
+                // Wedding day has passed
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+            
+            // Calculate time units
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            // Update DOM
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        
+        // Update countdown every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        // ========================================
+        // FADE-IN ANIMATION ON SCROLL
+        // ========================================
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all elements with fade-in class
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(el => observer.observe(el));
+        });
+        
+        // ========================================
+        // BACKGROUND MUSIC CONTROL
+        // ========================================
+        
+        const musicBtn = document.getElementById('musicBtn');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        let isPlaying = false;
+        
+        musicBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                backgroundMusic.pause();
+                musicBtn.classList.remove('playing');
+                musicBtn.innerHTML = '<i class="fas fa-music text-xl"></i>';
+                isPlaying = false;
+            } else {
+                backgroundMusic.play().catch(err => {
+                    console.log('Audio play failed:', err);
+                });
+                musicBtn.classList.add('playing');
+                musicBtn.innerHTML = '<i class="fas fa-pause text-xl"></i>';
+                isPlaying = true;
+            }
+        });
+        
+        // ========================================
+        // RSVP FORM HANDLING
+        // ========================================
+        
+        const rsvpForm = document.getElementById('rsvpForm');
+        const successMessage = document.getElementById('successMessage');
+        
+        rsvpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('guestName').value,
+                attendance: document.getElementById('attendance').value,
+                guestCount: document.getElementById('guestCount').value
+            };
+            
+            // Here you can send the data to your backend or Google Sheets
+            // For now, we'll just show the success message
+            console.log('RSVP Submitted:', formData);
+            
+            // You can integrate with:
+            // 1. Google Sheets API
+            // 2. Firebase
+            // 3. Your own backend
+            // 4. Email service (EmailJS, etc.)
+            
+            // Example: Send to Google Sheets or your backend
+            // fetch('YOUR_API_ENDPOINT', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(formData)
+            // });
+            
+            // Hide form and show success message
+            rsvpForm.style.display = 'none';
+            successMessage.classList.remove('hidden');
+            
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Optional: Reset form after 5 seconds
+            setTimeout(() => {
+                rsvpForm.reset();
+                rsvpForm.style.display = 'block';
+                successMessage.classList.add('hidden');
+            }, 5000);
+        });
+        
+        // ========================================
+        // SMOOTH SCROLL FOR ANCHOR LINKS
+        // ========================================
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // ========================================
+        // DISABLE RIGHT-CLICK ON IMAGES (Optional)
+        // ========================================
+        
+        // Uncomment if you want to protect images
+        // document.addEventListener('contextmenu', (e) => {
+        //     if (e.target.tagName === 'IMG') {
+        //         e.preventDefault();
+        //     }
+        // });
+        
+    </script>
+</body>
+</html>
